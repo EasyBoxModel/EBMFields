@@ -10,12 +10,12 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.0.0"
     },
     "autoload": {
         "psr-4": {
             "EBMFields\\": "src/",
-            "EBMFields\\Test\\": "tests/",
+            "EBMFields\\Test\\": "tests/"
         }
     },
     "require-dev": {
