@@ -1,66 +1,51 @@
 <?php
 
-namespace EBM\Field\Section;
+namespace EBMQ\Section;
 
-use EBM\Field\Form\BaseForm;
+use EBMQ\Questionnaire\Questionnaire;
 
 class Section
 {
-    protected $sections = [];
+    protected $fields = [];
+    protected $isVisible = false;
 
-    public function __construct(){}
+    public function __construct(Array $fields){
+        foreach ($fields as $field) {
+            array_push($this->fields, $field);
+        }
+    }
 
     public function save(Array $data = [])
     {
-        $baseForm = new BaseForm;
+        $q = new Questionnaire;
 
-        return $baseForm->save($data);
+        return $q->save($data);
     }
 
     public function validate(Array $data = [])
     {
-        $baseForm = new BaseForm;
+        $q = new Questionnaire;
 
-        return $baseForm->validate($data);
+        return $q->validate($data);
     }
 
-    public function getFields()
+    public function getFields(): array
     {
-        $baseForm = new BaseForm;
-
-        return $baseForm->getFields();
+        return $this->fields;
     }
 
-    public function addSection($section)
+    public function isComplete(): bool
     {
-        return array_push($this->sections, $section);
-    }
-
-    public function getCurrentSection($alias = null)
-    {
-        foreach ($this->sections as $section) {
-            // For the solicitud/actualizar route, get the $section where the field exists
-            if ($alias != null) {
-                foreach ($section->getFields() as $field) {
-                    $field->isUpdating = true;
-                    if ($alias == $field->getFieldAttr('alias')) {
-                        $section->isUpdating = true;
-                        return $section;
-                    }
-                }
-            }
-            if (!$section->isComplete()) {
-                return $section;
-            }
+        $fields = $this->getFields();
+        foreach ($fields as $field) {
+            return $field->isComplete();
         }
 
-        return null;
+        return true;
     }
 
-    public function getSections()
+    public function isVisible(): bool
     {
-        return array_filter($this->sections, function($section){
-            return $section->isVisible();
-        });
+        return $this->isVisible;
     }
 }

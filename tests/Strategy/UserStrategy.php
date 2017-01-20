@@ -1,8 +1,8 @@
 <?php
 
-namespace EBM\Field\Tests\Strategy;
+namespace EBMQ\Tests\Strategy;
 
-use EBM\Field\Field;
+use EBMQ\Field;
 
 class UserStrategy
 {

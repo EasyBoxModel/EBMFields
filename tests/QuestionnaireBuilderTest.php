@@ -1,13 +1,13 @@
 <?php
 
-namespace EBM\Tests;
+namespace EBMQ\Tests;
 
 use PHPUnit\Framework\TestCase;
-use EBM\Field\Tests\Factory\FormFactory;
-use EBM\Field\Tests\Model\User;
-use EBM\Field\Tests\Migration\User as UserMigration;
+use EBMQ\Tests\Factory\QuestionnaireFactory;
+use EBMQ\Tests\Model\User;
+use EBMQ\Tests\Migration\User as UserMigration;
 
-class FormBuilderTest extends TestCase
+class QuestionnaireBuilderTest extends TestCase
 {
     static function reset(){
         UserMigration::reset();
@@ -18,7 +18,7 @@ class FormBuilderTest extends TestCase
         self::reset();
     }
 
-    public function testFormBuilder()
+    public function testQuestionnaireBuilder()
     {
         $user = new User;
         $user->username = 'ebmuser';
@@ -26,11 +26,11 @@ class FormBuilderTest extends TestCase
         $user->place_of_birth_id = 1;
         $user->save();
 
-        $formFactory = FormFactory::get(1);
-        $fields = $formFactory->getFields();
+        $qFactory = QuestionnaireFactory::get(1);
+        $fields = $qFactory->getFields();
 
         // Test username field
-        $username = $formFactory->getField('username');
+        $username = $qFactory->getField('username');
         print_r($username->getValue());
     }
 }

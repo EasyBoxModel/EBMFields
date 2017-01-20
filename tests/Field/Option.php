@@ -1,8 +1,8 @@
 <?php
 
-namespace EBM\Field\Tests\Field;
+namespace EBMQ\Tests\Field;
 
-use EBM\Field\Tests\Model\PlaceOfBirth;
+use EBMQ\Tests\Model\PlaceOfBirth;
 
 class Option
 {

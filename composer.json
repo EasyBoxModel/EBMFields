@@ -1,5 +1,5 @@
 {
-    "name": "ebm/fields",
+    "name": "ebm/questionnaire",
     "description": "ebm form factory",
     "license": "proprietary",
     "authors": [
@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "EBM\\Field\\": "src/",
-            "EBM\\Field\\Tests\\": "tests/"
+            "EBMQ\\": "src/",
+            "EBMQ\\Tests\\": "tests/"
         }
     },
     "require-dev": {

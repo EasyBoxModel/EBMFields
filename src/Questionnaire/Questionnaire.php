@@ -1,10 +1,10 @@
 <?php
 
-namespace EBM\Field\Form;
+namespace EBMQ\Questionnaire;
 
-use EBM\Field\Field\Field;
+use EBMQ\Field\Field;
 
-class BaseForm
+class Questionnaire
 {
     private $formFields = [];
     public $isUpdating = false;
@@ -48,7 +48,7 @@ class BaseForm
     /**
     * @description Loops through each field config array after validation->isValid() and uses each Field save method
     * @param Array $data = Field::getFieldConfig()
-    * @return AbstractBaseForm
+    * @return AbstractQuestionnaire
     */
     public function save(Array $data = [])
     {
@@ -80,7 +80,7 @@ class BaseForm
     * @description Loops through each field config array after validation->isValid() and
     * @description uses each Field validators defined in the Application objects Field::addValidators(ZendValidator)
     * @param Array $data = Field::getFieldConfig()
-    * @return AbstractBaseForm
+    * @return AbstractQuestionnaire
     */
     public function validate(Array $data = [])
     {

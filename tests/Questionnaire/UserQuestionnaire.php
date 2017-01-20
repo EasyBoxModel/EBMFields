@@ -1,21 +1,20 @@
 <?php
 
-namespace EBM\Field\Tests\Form;
+namespace EBMQ\Tests\Questionnaire;
 
-use EBM\Field\Strategy\UserStrategy;
-use EBM\Field\Tests\Field\Option;
-use EBM\Field\Form\BaseForm;
+use EBMQ\Strategy\UserStrategy;
+use EBMQ\Tests\Field\Option;
+use EBMQ\Questionnaire\Questionnaire;
 
 // Models
-use EBM\Field\Tests\Model\User;
+use EBMQ\Tests\Model\User;
 
-class UserForm extends BaseForm
+class UserQuestionnaire extends Questionnaire
 {
     public function __construct(Int $userId)
     {
         $user = User::find($userId);
 
-        // DatosBásicos
         $this->addField('username', $user)
             ->setValue();
 

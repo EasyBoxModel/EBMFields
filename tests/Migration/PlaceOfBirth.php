@@ -1,6 +1,6 @@
 <?php
 
-namespace EBM\Field\Tests\Migration;
+namespace EBMQ\Tests\Migration;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Blueprint;
