@@ -1,8 +1,8 @@
 <?php
 
-namespace EBMFields\Section;
+namespace EBM\Field\Section;
 
-use EBMFields\Form\BaseForm;
+use EBM\Field\Form\BaseForm;
 
 class Section
 {

@@ -1,17 +1,19 @@
 <?php
 
-namespace EBMFields\Field;
+namespace EBM\Field\Tests\Field;
+
+use EBM\Field\Tests\Model\PlaceOfBirth;
 
 class Option
 {
     public static function getLuPlaceOfBirth(): array
     {
-        $addressStates = PlaceOfBirth::getAddressStates()->toArray();
+        $addressStates = PlaceOfBirth::find(1)->get()->toArray();
 
         $options = array_reduce($addressStates, function($acc, $value){
             $acc[] = [
-                'key' => $value->PLACE_OF_BIRTH_ID,
-                'value' => $value->PLACE_OF_BIRTH_DESC,
+                'key' => $value['id'],
+                'value' => $value['description'],
             ];
             return $acc;
         }, []);

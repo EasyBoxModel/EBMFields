@@ -1,6 +1,6 @@
 <?php
 
-namespace EBMFields\Field;
+namespace EBM\Field\Field;
 
 class Field
 {
@@ -71,7 +71,7 @@ class Field
     public function setValue($value = null)
     {
         if ($value == null && $this->fieldModel != null && $this->id != null) {
-            $this->setValueFromDb();
+            return $this->setValueFromDb();
         }
         $this->value = $value;
 

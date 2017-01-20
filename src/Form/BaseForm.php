@@ -1,8 +1,8 @@
 <?php
 
-namespace EBMFields\Form;
+namespace EBM\Field\Form;
 
-use EBMFields\Field\Field;
+use EBM\Field\Field\Field;
 
 class BaseForm
 {
@@ -33,6 +33,11 @@ class BaseForm
     public function getFields(): array
     {
         return $this->formFields;
+    }
+
+    public function getField(String $alias): Field
+    {
+        return $this->formFields[$alias];
     }
 
     public function isUpdating(): bool

@@ -1,18 +1,19 @@
 <?php
 
-namespace EBMFields\Form;
+namespace EBM\Field\Tests\Form;
 
-use EBMFields\Strategy\UserStrategy;
-use EBMFields\Field\Option;
+use EBM\Field\Strategy\UserStrategy;
+use EBM\Field\Tests\Field\Option;
+use EBM\Field\Form\BaseForm;
 
 // Models
-use App\User;
+use EBM\Field\Tests\Model\User;
 
-class ExampleForm extends AbstractBaseForm
+class UserForm extends BaseForm
 {
     public function __construct(Int $userId)
     {
-        $user = User::find($userId)
+        $user = User::find($userId);
 
         // DatosBásicos
         $this->addField('username', $user)
