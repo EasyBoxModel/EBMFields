@@ -1,18 +1,69 @@
 <?php
 
-namespace EBMQ\Questionnaire;
+namespace EBMQ\Base;
 
-use EBMQ\Field\Field;
-
-class Questionnaire
+class Application
 {
-    private $formFields = [];
+    private $sections = [];
+    private $fields = [];
     public $isUpdating = false;
     public $isValid = false;
     public $error = [];
 
+    public function __construct(){}
+
+    // Sections
+    public function addSection($section)
+    {
+        return array_push($this->sections, $section);
+    }
+
+    public function getCurrentSection($alias = null)
+    {
+        foreach ($this->sections as $section) {
+            // Get a section where the field belongs
+            if ($alias != null) {
+                foreach ($section->getFields() as $field) {
+                    $field->isUpdating = true;
+                    if ($alias == $field->getFieldAttr('alias')) {
+                        $section->isUpdating = true;
+                        return $section;
+                    }
+                }
+            }
+
+            // Or get the section if it's incomplete
+            if (!$section->isComplete()) {
+                return $section;
+            }
+        }
+
+        return null;
+    }
+
+    public function getSections(): array
+    {
+        return array_filter($this->sections, function($section){
+            return $section->isVisible();
+        });
+    }
+
+    public function isComplete(): bool
+    {
+        $sections = $this->getSections();
+        foreach ($sections as $section) {
+            if (!$section->isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Fields
+
     /**
-    * @description Feeds the $formFields array with Field instances
+    * @description Feeds the $fields array with Field instances
     * @param The alias of the field, this is required because e.g. ZIP_CODE may be repeated in certain sections
     * @param An eloquent model where the field is going to be saved
     * @return Field::class, allows to concat its methods in the Application definition
@@ -21,7 +72,7 @@ class Questionnaire
     {
         $field = new Field($model);
 
-        $this->formFields[$alias] = $field;
+        $this->fields[$alias] = $field;
 
         // Assign default column name
         $field->setColumn($alias)
@@ -32,14 +83,15 @@ class Questionnaire
 
     public function getFields(): array
     {
-        return $this->formFields;
+        return $this->fields;
     }
 
     public function getField(String $alias): Field
     {
-        return $this->formFields[$alias];
+        return $this->fields[$alias];
     }
 
+    // Is updating the application fields values
     public function isUpdating(): bool
     {
         return $this->isUpdating;
@@ -48,13 +100,13 @@ class Questionnaire
     /**
     * @description Loops through each field config array after validation->isValid() and uses each Field save method
     * @param Array $data = Field::getFieldConfig()
-    * @return AbstractQuestionnaire
+    * @return AbstractApplication
     */
     public function save(Array $data = [])
     {
         foreach ($data as $key) {
             try {
-                $field = $this->formFields[$key['alias']];
+                $field = $this->fields[$key['alias']];
                 if ($this->isUpdating()) {
                     $field->isUpdating = true;
                 }
@@ -80,13 +132,13 @@ class Questionnaire
     * @description Loops through each field config array after validation->isValid() and
     * @description uses each Field validators defined in the Application objects Field::addValidators(ZendValidator)
     * @param Array $data = Field::getFieldConfig()
-    * @return AbstractQuestionnaire
+    * @return AbstractApplication
     */
     public function validate(Array $data = [])
     {
         foreach ($data as $key) {
             try {
-                $field = $this->formFields[$key['alias']];
+                $field = $this->fields[$key['alias']];
                 foreach ($field->getValidators() as $validator) {
                     $isInvalid = !$validator->isValid($key['value']);
                     if ($isInvalid) {

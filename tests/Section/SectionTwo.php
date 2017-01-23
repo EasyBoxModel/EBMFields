@@ -1,11 +1,10 @@
 <?php
 
-namespace EBMQ\Tests\Questionnaire;
+namespace EBMQ\Tests\Section;
 
-use EBMQ\Section\Section;
+use EBMQ\Base\Section;
 
 class SectionTwo extends Section
 {
-    public function __construct()
-    {}
+    protected $name = 'Section Two';
 }

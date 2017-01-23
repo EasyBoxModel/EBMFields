@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "EBMQ\\": "src/",
+            "EBMQ\\Base\\": "src/",
             "EBMQ\\Tests\\": "tests/"
         }
     },

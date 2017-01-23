@@ -1,6 +1,6 @@
 <?php
 
-namespace EBMQ\Field;
+namespace EBMQ\Base;
 
 class Field
 {
@@ -70,7 +70,10 @@ class Field
     */
     public function setValue($value = null)
     {
-        if ($value == null && $this->fieldModel != null && $this->id != null) {
+        $hasNoValue = is_null($value);
+        $hasAModel = !is_null($this->fieldModel);
+        $hasAColumn = !is_null($this->id);
+        if ($hasNoValue && $hasAModel && $hasAColumn) {
             return $this->setValueFromDb();
         }
         $this->value = $value;
@@ -82,6 +85,8 @@ class Field
     {
         $model = $this->fieldModel;
         $column = $this->id;
+        // print_r($model->column);
+        // echo 'E';
         $this->value = $model->$column;
 
         return $this;

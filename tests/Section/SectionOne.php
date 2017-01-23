@@ -1,11 +1,20 @@
 <?php
 
-namespace EBMQ\Tests\Questionnaire;
+namespace EBMQ\Tests\Section;
 
-use EBMQ\Section\Section;
+use EBMQ\Base\Section;
 
 class SectionOne extends Section
 {
-    public function __construct()
-    {}
+    protected $name = 'Section One';
+    public $isComplete = false;
+
+    public function isComplete(): bool
+    {
+        // if (!$this->isComplete) {
+        //     return false;
+        // }
+
+        return parent::isComplete();
+    }
 }
