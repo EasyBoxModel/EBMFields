@@ -1,9 +1,9 @@
 <?php
 
-namespace EBMQ\Tests\Factory;
+namespace EBMApp\Tests\Factory;
 
-use EBMQ\Base\Application;
-use EBMQ\Tests\Application\UserApplication;
+use EBMApp\Base\Application;
+use EBMApp\Tests\Application\UserApplication;
 
 class ApplicationFactory
 {

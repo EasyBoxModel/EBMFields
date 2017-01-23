@@ -1,11 +1,11 @@
 <?php
 
-namespace EBMQ\Tests;
+namespace EBMApp\Tests;
 
 use PHPUnit\Framework\TestCase;
-use EBMQ\Tests\Factory\ApplicationFactory;
-use EBMQ\Tests\Model\User;
-use EBMQ\Tests\Migration\User as UserMigration;
+use EBMApp\Tests\Factory\ApplicationFactory;
+use EBMApp\Tests\Model\User;
+use EBMApp\Tests\Migration\User as UserMigration;
 
 class ApplicationBuilderTest extends TestCase
 {

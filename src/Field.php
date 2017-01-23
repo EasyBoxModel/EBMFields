@@ -1,6 +1,6 @@
 <?php
 
-namespace EBMQ\Base;
+namespace EBMApp\Base;
 
 class Field
 {

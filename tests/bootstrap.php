@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use EBMQ\Tests\Migration\Bootstrap;
+use EBMApp\Tests\Migration\Bootstrap;
 
 require 'vendor/autoload.php';
 

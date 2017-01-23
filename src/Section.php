@@ -1,8 +1,8 @@
 <?php
 
-namespace EBMQ\Base;
+namespace EBMApp\Base;
 
-use EBMQ\Base\Application;
+use EBMApp\Base\Application;
 
 class Section
 {

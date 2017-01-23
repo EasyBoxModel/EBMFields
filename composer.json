@@ -1,6 +1,6 @@
 {
-    "name": "ebm/questionnaire",
-    "description": "ebm form factory",
+    "name": "ebm/application",
+    "description": "ebm application factory",
     "license": "proprietary",
     "authors": [
         {
@@ -11,14 +11,12 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
-        "illuminate/database": "^5.2",
-        "illuminate/validation": "^5.3",
-        "illuminate/translation": "^5.3"
+        "illuminate/database": "^5.2"
     },
     "autoload": {
         "psr-4": {
-            "EBMQ\\Base\\": "src/",
-            "EBMQ\\Tests\\": "tests/"
+            "EBMApp\\Base\\": "src/",
+            "EBMApp\\Tests\\": "tests/"
         }
     },
     "require-dev": {

@@ -1,8 +1,8 @@
 <?php
 
-namespace EBMQ\Tests\Section;
+namespace EBMApp\Tests\Section;
 
-use EBMQ\Base\Section;
+use EBMApp\Base\Section;
 
 class SectionOne extends Section
 {

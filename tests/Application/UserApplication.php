@@ -1,16 +1,16 @@
 <?php
 
-namespace EBMQ\Tests\Application;
+namespace EBMApp\Tests\Application;
 
-use EBMQ\Base\Application;
-use EBMQ\Base\ApplicationInterface;
-use EBMQ\Strategy\UserStrategy;
-use EBMQ\Tests\Field\Option;
-use EBMQ\Tests\Section\SectionOne;
-use EBMQ\Tests\Section\SectionTwo;
+use EBMApp\Base\Application;
+use EBMApp\Base\ApplicationInterface;
+use EBMApp\Strategy\UserStrategy;
+use EBMApp\Tests\Field\Option;
+use EBMApp\Tests\Section\SectionOne;
+use EBMApp\Tests\Section\SectionTwo;
 
 // Models
-use EBMQ\Tests\Model\User;
+use EBMApp\Tests\Model\User;
 
 class UserApplication extends Application implements ApplicationInterface
 {

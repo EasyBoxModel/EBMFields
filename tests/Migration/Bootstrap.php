@@ -1,6 +1,6 @@
 <?php 
 
-namespace EBMQ\Tests\Migration;
+namespace EBMApp\Tests\Migration;
 
 class Bootstrap 
 {

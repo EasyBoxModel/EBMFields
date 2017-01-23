@@ -1,6 +1,6 @@
 <?php
 
-namespace EBMQ\Tests\Model;
+namespace EBMApp\Tests\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
