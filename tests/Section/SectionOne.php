@@ -11,9 +11,9 @@ class SectionOne extends Section
 
     public function isComplete(): bool
     {
-        // if (!$this->isComplete) {
-        //     return false;
-        // }
+        if (!$this->isComplete) {
+            return false;
+        }
 
         return parent::isComplete();
     }

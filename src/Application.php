@@ -13,12 +13,12 @@ class Application
     public function __construct(){}
 
     // Sections
-    public function addSection($section)
+    public function addSection(Section $section)
     {
         return array_push($this->sections, $section);
     }
 
-    public function getCurrentSection($alias = null)
+    public function getSectionByField(String $alias = null)
     {
         foreach ($this->sections as $section) {
             // Get a section where the field belongs
@@ -31,8 +31,12 @@ class Application
                     }
                 }
             }
+        }
+    }
 
-            // Or get the section if it's incomplete
+    public function getCurrentSection()
+    {
+        foreach ($this->sections as $section) {
             if (!$section->isComplete()) {
                 return $section;
             }
@@ -50,7 +54,7 @@ class Application
 
     public function isComplete(): bool
     {
-        $sections = $this->getSections();
+        $sections = $this->sections;
         foreach ($sections as $section) {
             if (!$section->isComplete()) {
                 return false;

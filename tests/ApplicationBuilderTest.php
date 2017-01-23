@@ -56,7 +56,9 @@ class ApplicationBuilderTest extends TestCase
         // Mark SectionOne as completed and check if it's complete
         $currentSection->isComplete = true;
         $this->assertTrue($currentSection->isComplete());
-        exit;
+
+        // Test that app is still incomplete
+        $this->assertFalse($userApp->isComplete());
 
         // Get the next section
         $currentSection = $userApp->getCurrentSection();
@@ -79,8 +81,30 @@ class ApplicationBuilderTest extends TestCase
         // Get the UserApplication
         $userApp = ApplicationFactory::create(1);
 
+        $place_of_birth_id = $userApp->getField('place_of_birth_id');
+        $this->assertEquals(1, $place_of_birth_id->getValue());
+
+        // Get the updated current section if any of its fields matches alias param
+        // Mark sectionOne as completed so sectionTwo is the currentSection
+        $sectionOne = $userApp->getSectionByField('username');
+        $sectionOne->isComplete = true;
+        $sectionTwo = $userApp->getSectionByField('place_of_birth_id');
+
+        // Test that the current section is complete 
+        $this->assertTrue($sectionTwo->isComplete());
+
         // Test that all sections are complete
         $this->assertTrue($userApp->isComplete());
+
+        // Set username value as -1 and test the app again
+        $username = $sectionOne->getField('username');
+        $username->setValue(-1);
+
+        // Get the UserApplication
+        $userApp = ApplicationFactory::create(1);
+
+        // Test that all sections are complete
+        $this->assertFalse($userApp->isComplete());
     }
 }
 

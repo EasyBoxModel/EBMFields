@@ -52,8 +52,9 @@ class Section
     {
         $fields = $this->getFields();
         foreach ($fields as $field) {
+            $field->setValue();
             if (!$field->isComplete()) {
-                return $field->isComplete();
+                return false;
             }
         }
 

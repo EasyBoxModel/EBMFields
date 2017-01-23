@@ -13,7 +13,7 @@ class User
         $schema = Capsule::schema();
         $schema->create('users', function(Blueprint $table){
             $table->increments('id');
-            $table->string('username');
+            $table->string('username')->nullable();
             $table->string('email')->nullable();
             $table->integer('place_of_birth_id')->nullable();
         });

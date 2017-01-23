@@ -81,12 +81,10 @@ class Field
         return $this;
     }
 
-    public function setValueFromDb()
+    private function setValueFromDb()
     {
         $model = $this->fieldModel;
         $column = $this->id;
-        // print_r($model->column);
-        // echo 'E';
         $this->value = $model->$column;
 
         return $this;
@@ -138,7 +136,7 @@ class Field
     public function isComplete()
     {
         if (!$this->allowEmpty) {
-            return !$this->hasEmptyValue($this->value);
+            return !$this->hasEmptyValue();
         }
 
         return true;
@@ -248,8 +246,9 @@ class Field
         return $this;
     }
 
-    private function hasEmptyValue($value): bool
+    private function hasEmptyValue(): bool
     {
+        $value = $this->getValue();
         if ($value == null || $value == -1 || $value == '' || $value == '-1' || count($value) < 1) {
             return true;
         }
