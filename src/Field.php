@@ -11,6 +11,7 @@ class Field
     private $value = null;
     private $options = [];
     private $alias = null;
+    private $placeholder = null;
 
     private $fieldModel = null;
     private $fieldValidators = [];
@@ -102,6 +103,13 @@ class Field
         return $this;
     }
 
+    public function setPlaceholder(String $placeholder)
+    {
+        $this->placeholder = $placeholder;
+
+        return $this;
+    }
+
     public function setType(String $type)
     {
         $this->type = $type;
@@ -130,6 +138,7 @@ class Field
             'type' => $this->type,
             'value' => $this->value,
             'options' => $this->options,
+            'placeholder' => $this->placeholder,
         ];
     }
 

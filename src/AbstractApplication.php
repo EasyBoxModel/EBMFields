@@ -72,7 +72,7 @@ abstract class AbstractApplication
     * @param An eloquent model where the field is going to be saved
     * @return Field::class, allows to concat its methods in the Application definition
     */
-    public function addField(String $alias, $model)
+    public function addField(String $alias, $model = null)
     {
         $field = new Field;
         $field->setModel($model);
@@ -94,12 +94,6 @@ abstract class AbstractApplication
         return $this->fields[$alias];
     }
 
-    // Is updating the application fields values
-    public function isUpdating(): bool
-    {
-        return $this->isUpdating;
-    }
-
     /**
     * @description Loops through each field config array after validation->isValid() and uses each Field save method
     * @param Array $data = Field::getFieldConfig()
@@ -119,18 +113,6 @@ abstract class AbstractApplication
                 ], $e);
             }
         }
-
-        return $this;
-    }
-
-    private function setError(Array $error = [], \Exception $e = null)
-    {
-        if ($e) {
-            error_log($e->getMessage());
-        }
-
-        $this->isValid = false;
-        $this->error = $error;
 
         return $this;
     }
@@ -166,6 +148,18 @@ abstract class AbstractApplication
                 ], $e);
             }
         }
+
+        return $this;
+    }
+
+    private function setError(Array $error = [], \Exception $e = null)
+    {
+        if ($e) {
+            error_log($e->getMessage());
+        }
+
+        $this->isValid = false;
+        $this->error = $error;
 
         return $this;
     }
