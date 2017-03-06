@@ -1,6 +1,6 @@
 # EBM Fields
 
-The Easy Box Model Fields package helps you build forms connected to your PHP backend faster.
+The Easy Box Model Fields package helps you build forms connected to your PHP backend __faster__.
 
 ## Usage
 
@@ -22,10 +22,12 @@ class UserApplication extends AbstractApplication
         $this->addField('username', $user)
             ->setValue();
 
+        // You can set a specific save strategy for a field
         $this->addField('email', $user)
             ->setSaveStrategy(array(UserStrategy::class, 'resetEmailVerificationDate'))
             ->setValue();
 
+        // You can set a select, checkbox or radio field options with your preferred key/value structure
         $this->addField('place_of_birth_id', $user)
             ->setValue()
             ->setOptions(Option::getLuPlaceOfBirth());
@@ -57,6 +59,8 @@ class UserApplication extends AbstractApplication
 Build a section made out of fields
 
 ```html
+<h1><?= $section->getName() ?></h1>
+
 <form method="POST">
     <fieldset class="form-group">
         <?= $section->getField('username') ?>
@@ -121,3 +125,8 @@ class MyController
     }
 }
 ```
+
+## Testing
+
+- Run a `composer install` command
+- Run a `phpunit tests` command

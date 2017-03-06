@@ -7,7 +7,6 @@ class Field
     // Field config
     private $id = null;
     private $label = null;
-    private $type = null;
     private $value = null;
     private $options = [];
     private $alias = null;
@@ -110,13 +109,6 @@ class Field
         return $this;
     }
 
-    public function setType(String $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function setOptions(Array $options)
     {
         $this->options = $options;
@@ -135,7 +127,6 @@ class Field
             'id' => $this->id,
             'alias' => $this->alias,
             'label' => $this->label,
-            'type' => $this->type,
             'value' => $this->value,
             'options' => $this->options,
             'placeholder' => $this->placeholder,

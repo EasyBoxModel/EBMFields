@@ -122,4 +122,9 @@ class Section
         
         return $slug;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }
