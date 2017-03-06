@@ -2,7 +2,7 @@
 
 namespace EBMApp\Base;
 
-use EBMApp\Base\Application;
+use EBMApp\Base\AbstractApplication;
 
 class Section
 {
@@ -15,7 +15,7 @@ class Section
     */
     protected $app;
 
-    public function __construct(Array $fields, Application $app){
+    public function __construct(Array $fields, AbstractApplication $app){
         foreach ($fields as $field) {
             $alias = $field->getFieldAttr('alias');
             $this->fields[$alias] = $field;

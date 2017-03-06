@@ -22,11 +22,6 @@ class Field
     public $isUpdating = false;
     public $isAddressField = false;
 
-    public function __construct($model)
-    {
-        $this->fieldModel = $model;
-    }
-
     public function setColumn(String $column)
     {
         $this->id = $column;
@@ -49,6 +44,11 @@ class Field
     public function getModel()
     {
         return $this->fieldModel;
+    }
+
+    public function setModel($model)
+    {
+        $this->fieldModel = $model;
     }
 
     public function addValidator($validator)
@@ -133,7 +133,7 @@ class Field
         ];
     }
 
-    public function isComplete()
+    public function isComplete(): bool
     {
         if (!$this->allowEmpty) {
             return !$this->hasEmptyValue();
@@ -249,9 +249,11 @@ class Field
     private function hasEmptyValue(): bool
     {
         $value = $this->getValue();
-        if ($value == null || $value == -1 || $value == '' || $value == '-1' || count($value) < 1) {
+        
+        if ($value == null || $value == '' || count($value) < 1) {
             return true;
         }
+
         return false;
     }
 }

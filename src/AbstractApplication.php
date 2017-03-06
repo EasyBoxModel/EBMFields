@@ -2,15 +2,17 @@
 
 namespace EBMApp\Base;
 
-class Application
+abstract class AbstractApplication
 {
     private $sections = [];
     private $fields = [];
     public $isUpdating = false;
-    public $isValid = false;
+    public $isValid = true;
     public $error = [];
 
-    public function __construct(){}
+    abstract public function addFields(Int $id);
+
+    abstract public function addSections();
 
     // Sections
     public function addSection(Section $section)
@@ -18,25 +20,25 @@ class Application
         return array_push($this->sections, $section);
     }
 
-    public function getSectionByField(String $alias = null)
+    public function getSectionByFieldAlias(String $alias = null)
     {
-        foreach ($this->sections as $section) {
+        $sections = $this->getSections();
+        foreach ($sections as $section) {
             // Get a section where the field belongs
-            if ($alias != null) {
-                foreach ($section->getFields() as $field) {
-                    $field->isUpdating = true;
-                    if ($alias == $field->getFieldAttr('alias')) {
-                        $section->isUpdating = true;
-                        return $section;
-                    }
+            foreach ($section->getFields() as $field) {
+                if ($alias == $field->getFieldAttr('alias')) {
+                    return $section;
                 }
             }
         }
+
+        return null;
     }
 
     public function getCurrentSection()
     {
-        foreach ($this->sections as $section) {
+        $sections = $this->getSections();
+        foreach ($sections as $section) {
             if (!$section->isComplete()) {
                 return $section;
             }
@@ -47,14 +49,12 @@ class Application
 
     public function getSections(): array
     {
-        return array_filter($this->sections, function($section){
-            return $section->isVisible();
-        });
+        return $this->sections;
     }
 
     public function isComplete(): bool
     {
-        $sections = $this->sections;
+        $sections = $this->getSections();
         foreach ($sections as $section) {
             if (!$section->isComplete()) {
                 return false;
@@ -74,14 +74,13 @@ class Application
     */
     public function addField(String $alias, $model)
     {
-        $field = new Field($model);
-
-        $this->fields[$alias] = $field;
-
-        // Assign default column name
+        $field = new Field;
+        $field->setModel($model);
         $field->setColumn($alias)
             ->setAlias($alias);
 
+        $this->fields[$alias] = $field;
+        
         return $field;
     }
 
@@ -110,25 +109,29 @@ class Application
     {
         foreach ($data as $key) {
             try {
-                $field = $this->fields[$key['alias']];
-                if ($this->isUpdating()) {
-                    $field->isUpdating = true;
-                }
+                $field = $this->getField($key['alias']);
                 $field->setValue($key['value'])->save();
             } catch (\Exception $e) {
-                error_log($e->getMessage());
-                $this->isValid = false;
-                $this->error = [
+                return $this->setError([
                     'ERROR' => 'No hemos podido guardar tus datos, intenta de nuevo.',
                     'VALUE' => $key['id'],
                     'FIELD' => $key['id'],
-                ];
-                return $this;
+                ], $e);
             }
         }
 
-        $this->isValid = true;
-        $this->error = [];
+        return $this;
+    }
+
+    private function setError(Array $error = [], \Exception $e = null)
+    {
+        if ($e) {
+            error_log($e->getMessage());
+        }
+
+        $this->isValid = false;
+        $this->error = $error;
+
         return $this;
     }
 
@@ -142,34 +145,28 @@ class Application
     {
         foreach ($data as $key) {
             try {
-                $field = $this->fields[$key['alias']];
-                foreach ($field->getValidators() as $validator) {
+                $field = $this->getField($key['alias']);
+                $validators = $field->getValidators();
+                foreach ($validators as $validator) {
                     $isInvalid = !$validator->isValid($key['value']);
                     if ($isInvalid) {
                         error_log(current($validator->getMessages()));
-                        $this->isValid = false;
-                        $this->error = [
+                        return $this->setError([
                             'ERROR' => current($validator->getMessages()),
                             'VALUE' => $key['value'],
                             'FIELD' => $key['id'],
-                        ];
-                        return $this;
+                        ]);
                     }
                 }
             } catch (\Exception $e) {
-                error_log($e->getMessage());
-                $this->isValid = false;
-                $this->error = [
+                return $this->setError([
                     'ERROR' => 'No hemos podido guardar tus datos, intenta de nuevo.',
                     'VALUE' => $key['value'],
                     'FIELD' => $key['id'],
-                ];
-                return $this;
+                ], $e);
             }
         }
 
-        $this->isValid = true;
-        $this->error = [];
         return $this;
     }
 

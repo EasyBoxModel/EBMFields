@@ -2,8 +2,7 @@
 
 namespace EBMApp\Tests\Application;
 
-use EBMApp\Base\Application;
-use EBMApp\Base\ApplicationInterface;
+use EBMApp\Base\AbstractApplication;
 use EBMApp\Strategy\UserStrategy;
 use EBMApp\Tests\Field\Option;
 use EBMApp\Tests\Section\SectionOne;
@@ -12,17 +11,17 @@ use EBMApp\Tests\Section\SectionTwo;
 // Models
 use EBMApp\Tests\Model\User;
 
-class UserApplication extends Application implements ApplicationInterface
+class UserApplication extends AbstractApplication
 {
-    public function __construct(Int $userId)
+    public function __construct(Int $id)
     {
-        $this->addFields($userId);
+        $this->addFields($id);
         $this->addSections();
     }
 
-    public function addFields(Int $userId)
+    public function addFields(Int $id)
     {
-        $user = User::find($userId);
+        $user = User::find($id);
 
         $this->addField('username', $user)
             ->setValue();
